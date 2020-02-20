@@ -1,38 +1,43 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background: url("./thumb-1920-514042.jpg") repeat center center/cover;
-  font-family: 'Saira Semi Condensed', sans-serif;
+    background: url("./thumb-1920-514042.jpg") repeat center center/cover;
+    font-family: 'Saira Semi Condensed', sans-serif;
 }
 
 
 /* Utilities */
 
 .correct {
-  background: green;
+    background: green;
 }
 
 .wrong {
-  background: red;
+    background: red;
 }
 
 .current {
-  background: white;
+    background: white;
+}
+
+.text_background {
+    background-color: rgb(134, 122, 122);
+    opacity: 0.5;
 }
 
 #body_box {
-  background-color: rgb(134, 122, 122);
-  margin: 20vh 40vh;
-  height: 50vh;
-  border: 0px solid #333;
-  opacity: 0.5;
-  font-size: 2.5rem;
+    background-color: rgb(134, 122, 122);
+    margin: 20vh 40vh;
+    height: 50vh;
+    border: 0px solid #333;
+    opacity: 0.5;
+    font-size: 2.5rem;
 }
 
 #body_box .content {
-  opacity: 1;
+    opacity: 1;
 }
