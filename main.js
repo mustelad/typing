@@ -1,5 +1,10 @@
 var displayController = (function() {
-  return {
+    var removeStyles = function(id) {
+        document.querySelector(id).classList.remove('correct');
+        document.querySelector(id).classList.remove('wrong');
+        document.querySelector(id).classList.remove('current');
+    }
+    return {
       displayText: function(text) {
           [...text].forEach((element, index) => {
               var html = '<span class="id_%id%">%symbol%<span>';
@@ -25,6 +30,16 @@ var displayController = (function() {
       },
       lastButton: function() {
           document.querySelector('.content').style.display = 'none';
+      },
+      oneSymbolBack: function(cur) {
+          var element = '.id_' + cur;
+          removeStyles(element);
+          document.querySelector(element).classList.add('current');
+      },
+      wrongSymbol: function(cur) {
+            var element = '.id_' + cur;
+          removeStyles(element);
+          document.querySelector(element).classList.add('wrong');
       }
   }
 })()
@@ -37,29 +52,40 @@ var controller = (function(dC) {
           dC.removeText(text);
           restore();
 
-      }
+      } 
+      else {
+        if (ev.key === text[cur]) {
+            if (cur + 1 === text.length) {
+                dC.lastButton();
+            } else {
+                dC.rightButton(cur);
+                cur++;
+            }
+        }
+        else {
+            if (ev.key === "Backspace" && cur !== 0) {
+            cur--;
+            dC.oneSymbolBack(cur);
+            }
+            else {
+            if (ev.key !== "Shift" && ev.key !=='Control' && ev.key !== 'Alt') {
+                dC.wrongSymbol(cur);
+                cur++;
+                }   
+            }
+        }
+        }   
       console.log(ev);
-      if (ev.key === text[cur]) {
-
-          if (cur + 1 === text.length) {
-              dC.lastButton();
-          } else {
-              dC.rightButton(cur);
-              cur++;
-          }
-
-      }
-
-
-  }
+}
   var restore = function() {
       dC.displayText(text);
+      dC.oneSymbolBack(0);
       cur = 0;
-      document.addEventListener('keydown', (event) => proceed(event));
-  }
+   }
   return {
       init: function() {
           restore();
+          document.addEventListener('keydown', (event) => proceed(event));
       }
   }
 })(displayController)
