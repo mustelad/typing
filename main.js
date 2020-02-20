@@ -40,20 +40,46 @@ var displayController = (function() {
         },
         wrongSymbol: function(cur) {
             var element = '.id_' + cur;
+            var next = '.id_' + (cur + 1);
             removeStyles(element);
             document.querySelector(element).classList.add('wrong');
+            document.querySelector(next).classList.add('current');
+        },
+        updateWPM: function(wpm) {
+
+            document.querySelector('.number').innerHTML = wpm;
         }
     }
 })()
 
-var controller = (function(dC) {
+var statistic = (function() {
+    var TotalMSec = 0.1;
+    return {
+        wpmCount: function(cur) {
+            var wpm = Math.round((cur / 5) / (TotalMSec / 60000));
+            return wpm;
+        },
+        increase: function() {
+            TotalMSec = TotalMSec + 1000;
+        },
+        start: function() {
+            TotalMSec = 0.00001;
+        }
+    }
+})();
+
+var controller = (function(dC, stat) {
     var cur = 0;
+    var intervalSec, intervalWPM;
     var text = 'privet menya zovut Eldar';
     var proceed = function(ev) {
+        if (cur === 0) {
+            console.log('timer stopped');
+            stat.start();
+        }
         if (ev.key === "n" && ev.ctrlKey === true && ev.altKey === true) {
             dC.removeText(text);
             restore();
-
         } else {
             if (ev.key === text[cur]) {
                 if (cur + 1 === text.length) {
@@ -66,15 +92,25 @@ var controller = (function(dC) {
                 if (ev.key === "Backspace" && cur !== 0) {
                     cur--;
                     dC.oneSymbolBack(cur);
+
                 } else {
-                    if (ev.key !== "Shift" && ev.key !== 'Control' && ev.key !== 'Alt') {
+                    if (ev.key !== "Shift" && ev.key !== 'Control' && ev.key !== 'Alt' && ev.key !== 'Backspace') {
                         dC.wrongSymbol(cur);
                         cur++;
                     }
                 }
             }
         }
-        console.log(ev);
+        if (cur === 1) {
+            console.log('timer started');
+            stat.start();
+        }
+    }
+    var updateWPM = function() {
+        if (cur !== 0 && cur + 1 !== text.length) {
+            dC.updateWPM(stat.wpmCount(cur));
+        }
+
     }
     var restore = function() {
         dC.displayText(text);
@@ -84,8 +120,10 @@ var controller = (function(dC) {
         init: function() {
             restore();
             document.addEventListener('keydown', (event) => proceed(event));
+            intervalSec = window.setInterval(stat.increase, 1000);
+            intervalWPM = window.setInterval(updateWPM, 1000);
         }
     }
-})(displayController)
+})(displayController, statistic)
 
 controller.init();

@@ -29,10 +29,14 @@ body {
     opacity: 0.5;
 }
 
+
+/* Container for text */
+
 #body_box {
     background-color: rgb(134, 122, 122);
     margin: 20vh 40vh;
-    height: 50vh;
+    min-height: 50vh;
+    min-width: 50vh;
     border: 0px solid #333;
     opacity: 0.5;
     font-size: 2.5rem;
@@ -40,4 +44,13 @@ body {
 
 #body_box .content {
     opacity: 1;
+}
+
+
+/* WPM */
+
+#wpm {
+    text-align: center;
+    font-size: 3rem;
+    color: rgb(86, 214, 150);
 }
