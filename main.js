@@ -30,6 +30,7 @@ var displayController = (function() {
         },
         lastButton: function() {
             document.querySelector('.content').style.display = 'none';
+            document.querySelector('img').src = "./type - Copy.png"
         },
         oneSymbolBack: function(cur) {
             var element = '.id_' + cur;

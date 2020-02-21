@@ -13,7 +13,7 @@ body {
 /* Utilities */
 
 .correct {
-    background: green;
+    background: rgb(59, 192, 70);
 }
 
 .wrong {
