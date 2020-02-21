@@ -71,7 +71,7 @@ var statistic = (function() {
 var controller = (function(dC, stat) {
     var cur = 0;
     var intervalSec, intervalWPM;
-    var text = 'privet menya zovut Eldar';
+    var text = `This is Paris, and I'm an American who lives here. My name is Jerry Mulligan, and I'm an ex G.I. In 1945 when the army told me to find my own job, I stayed on. And I'll tell you why: I'm a painter, and all my life that's all I've ever wanted to do. For a painter, the mecca of the world for study, for inspiration, and for living is here on this star called Paris.`;
     var proceed = function(ev) {
         if (cur === 0) {
             console.log('timer stopped');

@@ -6,7 +6,6 @@
 }
 
 body {
-    background: url("./thumb-1920-514042.jpg") repeat center center/cover;
     font-family: 'Inconsolata' ;
 }
 
@@ -22,7 +21,7 @@ body {
 }
 
 .current {
-    background: white;
+    background: yellow;
 }
 
 .text_background {
@@ -34,19 +33,27 @@ body {
 }
 
 /* Container for text */
-
+img {
+    display: block;
+    position: absolute;
+    height: 40vh;
+    bottom: 0;
+    right: 0;
+}
 #body_box {
-    background-color: rgb(134, 122, 122);
-    margin: 20vh 40vh;
-    min-height: 50vh;
-    min-width: 50vh;
+    background-color: #fff;
+    margin: auto;
+    max-height: 50vh;
+    margin-top: 5rem;
     border: 0px solid #333;
-    opacity: 0.5;
+    border-left: 3px solid #000;
     font-size: 2.5rem;
+    padding: 1rem;
 }
 
 #body_box .content {
     opacity: 1;
+    margin: auto;
 }
 #body_box .content span {
     min-width: 30px;
@@ -58,5 +65,5 @@ body {
 #wpm {
     text-align: center;
     font-size: 3rem;
-    color: rgb(86, 214, 150);
+    color: #000;
 }
