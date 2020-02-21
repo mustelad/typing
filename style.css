@@ -33,12 +33,24 @@ body {
 }
 
 /* Container for text */
-img {
-    display: block;
-    position: absolute;
-    height: 40vh;
+.bottom {
+    position:  absolute;
+    display: flex;
+    width: 100%;
     bottom: 0;
-    right: 0;
+    justify-content: flex-end;
+}
+.line {
+    position: relative;
+    min-width: 80px;
+}
+.pos1 {
+    max-height: 10vh;
+    position: absolute;
+    bottom: 0;
+}
+.writer {
+    max-height: 40vh;
 }
 #body_box {
     background-color: #fff;
