@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,7 +7,7 @@
 
 body {
     background: url("./thumb-1920-514042.jpg") repeat center center/cover;
-    font-family: 'Saira Semi Condensed', sans-serif;
+    font-family: 'Inconsolata' ;
 }
 
 
@@ -28,7 +29,9 @@ body {
     background-color: rgb(134, 122, 122);
     opacity: 0.5;
 }
-
+.symbol {
+    border-radius: 0.4rem;
+}
 
 /* Container for text */
 
@@ -44,6 +47,9 @@ body {
 
 #body_box .content {
     opacity: 1;
+}
+#body_box .content span {
+    min-width: 30px;
 }
 
 

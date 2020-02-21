@@ -7,7 +7,7 @@ var displayController = (function() {
     return {
         displayText: function(text) {
             [...text].forEach((element, index) => {
-                var html = '<span class="id_%id%">%symbol%<span>';
+                var html = '<span class="id_%id% symbol">%symbol%<span>';
                 newHtml = html.replace('%id%', index);
                 newHtml = newHtml.replace("%symbol%", element);
                 document.querySelector(".content").insertAdjacentHTML('beforeend', newHtml);
