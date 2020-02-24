@@ -6,7 +6,12 @@
 }
 
 body {
-    font-family: 'Inconsolata' ;
+    font-family: 'Inconsolata';
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
 }
 
 
@@ -28,35 +33,41 @@ body {
     background-color: rgb(134, 122, 122);
     opacity: 0.5;
 }
+
 .symbol {
     border-radius: 0.4rem;
 }
 
+
 /* Container for text */
+
 .bottom {
-    position:  absolute;
+    position: absolute;
     display: flex;
     width: 100%;
     bottom: 0;
     justify-content: flex-end;
 }
+
 .line {
     position: relative;
     min-width: 80px;
 }
+
 .pos1 {
     max-height: 10vh;
     position: absolute;
     bottom: 0;
 }
+
 .writer {
     max-height: 40vh;
 }
+
 #body_box {
     background-color: #fff;
-    margin: auto;
     max-height: 50vh;
-    margin-top: 5rem;
+    margin: 5rem;
     border: 0px solid #333;
     border-left: 3px solid #000;
     font-size: 2.5rem;
@@ -65,8 +76,8 @@ body {
 
 #body_box .content {
     opacity: 1;
-    margin: auto;
 }
+
 #body_box .content span {
     min-width: 30px;
 }
@@ -78,4 +89,49 @@ body {
     text-align: center;
     font-size: 3rem;
     color: #000;
+}
+
+
+/* Header */
+
+#top {
+    display: flex;
+    background: #333;
+    text-align: center;
+    padding: 0.5rem;
+    justify-content: space-between;
+    color: white;
+}
+
+#top i {
+    padding: 0 2rem;
+    cursor: pointer;
+}
+
+
+/* keyboard */
+
+.keyboard {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column-reverse;
+}
+
+.keyboard .line {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+}
+
+.keyboard .line:last-child {
+    border-top: 1px solid #333;
+}
+
+.keyboard .key {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.2rem;
+    margin: 1px;
 }

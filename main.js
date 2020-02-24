@@ -16,22 +16,17 @@ var displayController = (function() {
             document.querySelector('.content').style.display = 'block';
         },
         removeText: function(text) {
-            [...text].forEach((element, index) => {
-                id = ".id_" + index;
+            for (var i = 0; i < text; i++) {
+                id = ".id_" + i;
                 document.querySelector(id).parentNode.removeChild(document.querySelector(id));
-            })
+            }
         },
         rightButton: function(cur) {
-            var newHtml = `<div class="line"><img src="running1.png" alt="pos1" class="pos1"></div>`;
             var element = '.id_' + cur;
             var nextElement = '.id_' + (cur + 1);
             document.querySelector(element).classList.toggle('current');
             document.querySelector(element).classList.toggle('correct');
             document.querySelector(nextElement).classList.add('current');
-            if (cur % 20 === 0) {
-            document.querySelector('.bottom').insertAdjacentHTML('afterbegin',newHtml);                
-            }
-
         },
         lastButton: function() {
             document.querySelector('.content').style.display = 'none';
@@ -76,18 +71,18 @@ var statistic = (function() {
 
 var controller = (function(dC, stat) {
     var cur = 0;
+    var textLength;
     var intervalSec, intervalWPM;
     var text = `This is Paris, and I'm an American who lives here. My name is Jerry Mulligan, and I'm an ex G.I. In 1945 when the army told me to find my own job, I stayed on. And I'll tell you why: I'm a painter, and all my life that's all I've ever wanted to do. For a painter, the mecca of the world for study, for inspiration, and for living is here on this star called Paris.`;
     var proceed = function(ev) {
-        if (cur+1 >= text.length) {
+        if (cur + 1 >= text.length) {
             dC.lastButton();
         }
         if (cur === 0) {
-            console.log('timer stopped');
             stat.start();
         }
         if (ev.key === "n" && ev.ctrlKey === true && ev.altKey === true) {
-            dC.removeText(text);
+            dC.removeText(textLength);
             restore();
         } else {
             if (ev.key === text[cur]) {
@@ -111,7 +106,6 @@ var controller = (function(dC, stat) {
             }
         }
         if (cur === 1) {
-            console.log('timer started');
             stat.start();
         }
     }
@@ -123,12 +117,34 @@ var controller = (function(dC, stat) {
     }
     var restore = function() {
         dC.displayText(text);
+        textLength = text.length;
         cur = 0;
+    }
+    var redo = function() {
+        dC.removeText(textLength);
+        dC.displayText(text);
+        cur = 0;
+
+    }
+    var next = function() {
+        dC.removeText(textLength);
+        dC.displayText(text);
+        cur = 0;
+        textLength = text.length;
+    }
+    var randomText = function() {
+        var id = Math.round(Math.random() * 2) + 1;
+        fetch(`./texts/${id}.txt`)
+            .then(r => r.text())
+            .then(t => text = t)
+            .then(t => next());
     }
     return {
         init: function() {
             restore();
             document.addEventListener('keydown', (event) => proceed(event));
+            document.querySelector('.repeat').addEventListener('click', redo);
+            document.querySelector('.next').addEventListener('click', randomText);
             intervalSec = window.setInterval(stat.increase, 1000);
             intervalWPM = window.setInterval(updateWPM, 1000);
         }
