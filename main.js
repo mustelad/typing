@@ -5,6 +5,14 @@ var displayController = (function() {
         document.querySelector(id).classList.remove('current');
     }
     return {
+        removeStylesId: function(code) {
+            if (code.includes('Key')) {
+                document.getElementById(code).classList.remove('correct');
+                document.getElementById(code).classList.remove('wrong');
+                document.getElementById(code).classList.remove('current');
+            }
+
+        },
         displayText: function(text) {
             [...text].forEach((element, index) => {
                 var html = '<span class="id_%id% symbol">%symbol%<span>';
@@ -14,6 +22,8 @@ var displayController = (function() {
             })
             document.querySelector('.id_0').classList.add('current');
             document.querySelector('.content').style.display = 'block';
+            document.querySelector('.number').innerHTML = '';
+
         },
         removeText: function(text) {
             for (var i = 0; i < text; i++) {
@@ -49,6 +59,12 @@ var displayController = (function() {
         updateWPM: function(wpm) {
 
             document.querySelector('.number').innerHTML = wpm;
+        },
+        keYSymbolCorrect: function(code) {
+            document.getElementById(code).classList.add('correct');
+        },
+        keYSymbolWrong: function(code) {
+            document.getElementById(code).classList.add('wrong');
         }
     }
 })()
@@ -71,7 +87,7 @@ var statistic = (function() {
 
 var controller = (function(dC, stat) {
     var cur = 0;
-    var textLength;
+    var textLength, exElement;
     var intervalSec, intervalWPM;
     var text = `This is Paris, and I'm an American who lives here. My name is Jerry Mulligan, and I'm an ex G.I. In 1945 when the army told me to find my own job, I stayed on. And I'll tell you why: I'm a painter, and all my life that's all I've ever wanted to do. For a painter, the mecca of the world for study, for inspiration, and for living is here on this star called Paris.`;
     var proceed = function(ev) {
@@ -90,16 +106,20 @@ var controller = (function(dC, stat) {
                     dC.lastButton();
                 } else {
                     dC.rightButton(cur);
+                    if (ev.code.includes('Key')) dC.keYSymbolCorrect(ev.code);
+                    if (exElement) dC.removeStylesId(exElement.code);
                     cur++;
                 }
             } else {
                 if (ev.key === "Backspace" && cur !== 0) {
                     cur--;
                     dC.oneSymbolBack(cur);
-
+                    dC.removeStylesId(ev.code);
                 } else {
                     if (ev.key !== "Shift" && ev.key !== 'Control' && ev.key !== 'Alt' && ev.key !== 'Backspace') {
                         dC.wrongSymbol(cur);
+                        if (ev.code.includes('Key')) dC.keYSymbolWrong(ev.code);
+                        if (exElement && exElement.code !== ev.code) dC.removeStylesId(exElement.code);
                         cur++;
                     }
                 }
@@ -108,6 +128,7 @@ var controller = (function(dC, stat) {
         if (cur === 1) {
             stat.start();
         }
+        if (ev.code.includes('Key')) exElement = ev;
     }
     var updateWPM = function() {
         if (cur !== 0 && cur + 1 !== text.length) {
